@@ -4,6 +4,63 @@ Agar sistem *guardrails*, aturan *monorepo*, dan template spesifikasi yang ada d
 
 ---
 
+## 0️⃣ SKENARIO 0: Dari Ide Project Baru ➡️ Menjadi Blueprint & Roadmap
+Gunakan *prompt* ini jika Anda ingin membuat project/aplikasi baru dari nol, atau ingin merancang migrasi besar menuju target monorepo.
+
+### 0A. Untuk Orang Awam / Input Singkat
+Kalau belum siap menjawab detail teknis, isi dulu form ringan:
+
+```bash
+./prod-guide-versiku/setup.sh --intake
+```
+
+Output:
+- `prod-guide-versiku/generated/<project-slug>/PROJECT_INTAKE.md`
+- `prod-guide-versiku/generated/<project-slug>/PROMPT_TO_BLUEPRINT.md`
+
+Setelah itu, berikan prompt ini ke AI:
+```text
+Tolong baca `PROJECT_INTAKE.md`.
+Ubah intake awam itu menjadi `PROJECT_BLUEPRINT.md` yang mengikuti `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEMPLATE.md`.
+Lalu generate `ROADMAP.md` yang mengikuti `prod-guide-versiku/AI_RULES_ROADMAP.md`.
+
+PENTING:
+- Jangan coding dulu.
+- Kalau ada informasi kurang, maksimal tanya 5 pertanyaan klarifikasi paling penting.
+- Kalau bisa diinfer dengan aman, lanjutkan dan tandai sebagai Assumption.
+```
+
+### 0B. Untuk Input Lebih Lengkap
+**⚡ OPSI CEPAT VIA SCRIPT:**
+```bash
+./prod-guide-versiku/setup.sh
+```
+Output default:
+- `prod-guide-versiku/generated/<project-slug>/PROJECT_BLUEPRINT.md`
+- `prod-guide-versiku/generated/<project-slug>/ROADMAP.md`
+
+Jika ingin output ke folder lain:
+```bash
+./prod-guide-versiku/setup.sh --output docs/blueprints
+```
+
+**📝 KOPAS PROMPT INI:**
+```text
+Aku mau bikin project baru bernama **[Nama Project]**.
+Konsep singkatnya adalah **[Jelaskan produk, target user, masalah yang diselesaikan, dan platform yang diinginkan]**.
+
+Tolong bantu jabarkan menjadi Production Project Blueprint.
+WAJIB gunakan persis format di file `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEMPLATE.md`.
+
+PENTING:
+- Jangan tulis kode dulu.
+- Tentukan repo mode, backend mode, high-level feature map, data blueprint, API blueprint, UI/UX blueprint, testing strategy, deployment strategy, dan project roadmap.
+- Jika ada asumsi penting, tulis di bagian Open Questions.
+```
+> 💡 *Setelah blueprint disetujui, gunakan roadmap di dalamnya untuk memecah setiap fitur P0/P1 menjadi file spesifikasi menggunakan `AI_FEATURE_TEMPLATE.md`.*
+
+---
+
 ## 1️⃣ SKENARIO 1: Dari Ide Mentah ➡️ Menjadi Spesifikasi Teknis
 Gunakan *prompt* ini jika Anda punya ide kasar dan ingin AI membantu menjabarkannya menjadi spesifikasi yang detail dan siap dieksekusi (Product Requirements Document).
 
