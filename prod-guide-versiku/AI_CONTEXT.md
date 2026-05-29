@@ -97,7 +97,7 @@
 - Log: `{"level":"info","time":"ISO8601","msg":"...","traceId":"...","userId":"...","module":"...","duration_ms":45}`
 - Codes: `AUTH_INVALID_TOKEN`, `VALIDATION_FAILED`, `DB_CONFLICT`, `RATE_LIMITED`, `EXTERNAL_SERVICE_DOWN`, `NOT_FOUND`.
 - Tracing: OpenTelemetry auto-instrument HTTP/DB/cache. Inject `traceparent` outbound.
-- Health: `GET /health` → `{"status":"ok","uptime":1234}`. `GET /ready` → cek DB/Redis. `503` if down.
+- Health: `GET /healthz` → `{"status":"ok","uptime":1234}`. `GET /readyz` → cek DB/Redis. `503` if down.
 - Retry: Max `2` retries after initial request, exp backoff (`1s,2s`). Circuit breaker after `5` consecutive errors.
 
 ## 10. STATE & SYNC

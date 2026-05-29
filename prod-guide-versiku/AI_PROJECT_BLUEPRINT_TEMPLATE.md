@@ -177,7 +177,7 @@ packages/
 - **Logging:** JSON logs with traceId, userId, module, duration_ms.
 - **Tracing:** OpenTelemetry HTTP/DB/cache.
 - **Error Tracking:** Sentry or approved equivalent.
-- **Health Checks:** `/health` and `/ready`.
+- **Health Checks:** `/healthz` and `/readyz`.
 - **Dashboards/Alerts:** [API error rate, latency, queue failures, DB connections, mobile crash rate]
 
 ## 14. TESTING STRATEGY
