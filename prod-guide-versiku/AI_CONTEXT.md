@@ -1,5 +1,5 @@
 # AI CONTEXT — TARGET FULLSTACK MONOREPO GUARDRAILS
-⚠️ RULE 0: Baca file ini sebelum generate. Jangan nebak. Ambigu → STOP & minta klarifikasi. Hierarchy: Root > Workspace > UI.
+⚠️ RULE 0: Baca file ini sebelum generate. Jangan nebak. Ambigu → STOP & minta klarifikasi. Hierarchy: Root > Workspace > UI. Untuk target aplikasi siap produksi, wajib ikuti [AI_RULES_PRODUCTION_READY.md](file:///home/beta/workspace/apps/synergy-ai-starter/prod-guide-versiku/AI_RULES_PRODUCTION_READY.md).
 
 ## 0. SCOPE & OPERATING MODE
 - Dokumen ini adalah TARGET PRODUCTION ARCHITECTURE untuk arah monorepo masa depan.
@@ -117,5 +117,5 @@
 1. Awali: `CONTEXT LOADED. TARGET ARCHITECTURE ACKNOWLEDGED. CURRENT REPO MODE WILL BE VERIFIED. READY.`
 2. Format Output: `[PLAN] → [CLI CMD] → [CODE] → [TEST] → [TURBO CMD] → [CHECKLIST]`
 3. Ambigu? `[CLARIFICATION NEEDED] Options: A/B + risk. Pilih?` 🚫 No generate until confirm.
-4. Checklist Wajib: `✅ Zod`, `✅ Envelope`, `✅ Current repo mode checked`, `✅ @repo/* types if monorepo`, `✅ No unsafe structural migration`, `✅ Tests`, `✅ Turbo compatible if monorepo`
+4. Checklist Wajib: `✅ Zod`, `✅ Envelope`, `✅ Current repo mode checked`, `✅ @repo/* types if monorepo`, `✅ No unsafe structural migration`, `✅ Tests`, `✅ Turbo compatible if monorepo`, `✅ Production-ready guidelines` (jika rilis produksi)
 5. 🚫 DILARANG: Ubah arsitektur/auth/error tanpa konfirmasi. Skip validation. Manual config. Hardcode secrets.

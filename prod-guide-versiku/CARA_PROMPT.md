@@ -22,7 +22,7 @@ Setelah itu, berikan prompt ini ke AI:
 ```text
 Tolong baca `PROJECT_INTAKE.md`.
 Ubah intake awam itu menjadi `PROJECT_BLUEPRINT.md` yang mengikuti `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEMPLATE.md`.
-Lalu generate `ROADMAP.md` yang mengikuti `prod-guide-versiku/AI_RULES_ROADMAP.md`.
+Lalu generate `ROADMAP.md` yang mengikuti `prod-guide-versiku/AI_RULES_ROADMAP.md` serta mengintegrasikan panduan pengerasan produksi di `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md`.
 
 PENTING:
 - Jangan coding dulu.
@@ -50,7 +50,7 @@ Aku mau bikin project baru bernama **[Nama Project]**.
 Konsep singkatnya adalah **[Jelaskan produk, target user, masalah yang diselesaikan, dan platform yang diinginkan]**.
 
 Tolong bantu jabarkan menjadi Production Project Blueprint.
-WAJIB gunakan persis format di file `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEMPLATE.md`.
+WAJIB gunakan persis format di file `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEMPLATE.md` serta patuhi panduan pengerasan produksi di `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md`.
 
 PENTING:
 - Jangan tulis kode dulu.
@@ -85,7 +85,7 @@ Gunakan *prompt* ini jika dokumen spesifikasi fitur sudah Anda anggap lengkap (s
 ```text
 Spesifikasi teknis untuk fitur **[Nama Fitur]** sudah siap. Tolong baca dengan teliti keseluruhan dokumennya.
 
-Setelah itu, tolong buatkan Roadmap Implementasi berdasarkan panduan ketat dari file `prod-guide-versiku/AI_RULES_ROADMAP.md` dan patuhi aturan monorepo kita di `prod-guide-versiku/AI_CONTEXT.md`.
+Setelah itu, tolong buatkan Roadmap Implementasi berdasarkan panduan ketat dari file `prod-guide-versiku/AI_RULES_ROADMAP.md`, patuhi aturan monorepo kita di `prod-guide-versiku/AI_CONTEXT.md`, dan integrasikan checklist pengerasan dari `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md` agar fitur ini siap dirilis di produksi.
 
 PENTING: 
 Tentukan dulu tipe roadmap-nya: Fullstack Data Feature, Frontend-only, Mobile-only, Bugfix, Infra/Deploy, atau Docs/Spec.
