@@ -1,0 +1,37 @@
+{
+  "name": "@repo/ui",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./src/shared/index.ts",
+      "default": "./src/shared/index.ts"
+    },
+    "./web": "./src/web/index.ts",
+    "./mobile": "./src/mobile/index.ts",
+    "./tokens": "./tokens/design-tokens.json"
+  },
+  "scripts": {
+    "sync:ui-tokens": "tsx scripts/sync-tokens.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.0"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
+    "@types/react": "^19.0.0",
+    "@types/react-native": "^0.73.0",
+    "react": "^19.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  }
+}

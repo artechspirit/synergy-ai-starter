@@ -1,0 +1,95 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # ─── Deploy API to Google Cloud Run ───────────────────────────────────
+  deploy-api:
+    name: Deploy API → Cloud Run
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # for Workload Identity Federation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to GCP (OIDC)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build & Push Docker image
+        run: |
+          gcloud builds submit apps/api \
+            --tag ${{ secrets.GCP_ARTIFACT_REGISTRY }}/api:${{ github.sha }} \
+            --project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Run DB Migrations
+        run: |
+          # Run migrations before rolling update
+          gcloud run jobs execute api-migrate \
+            --region ${{ secrets.GCP_REGION }} \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
+            --wait
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy api \
+            --image ${{ secrets.GCP_ARTIFACT_REGISTRY }}/api:${{ github.sha }} \
+            --region ${{ secrets.GCP_REGION }} \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
+            --set-env-vars NODE_ENV=production \
+            --update-secrets \
+              DATABASE_URL=DATABASE_URL:latest,\
+              JWT_PRIVATE_KEY=JWT_PRIVATE_KEY:latest,\
+              JWT_PUBLIC_KEY=JWT_PUBLIC_KEY:latest \
+            --min-instances 1 \
+            --max-instances 10 \
+            --memory 512Mi \
+            --cpu 1 \
+            --platform managed \
+            --allow-unauthenticated
+
+  # ─── Deploy Web (Vercel handles this via Git integration) ─────────────
+  # Vercel auto-deploys when changes are pushed to main.
+  # Add VERCEL_TOKEN + VERCEL_PROJECT_ID + VERCEL_ORG_ID to repo secrets.
+
+  # ─── Deploy Mobile OTA Update ─────────────────────────────────────────
+  deploy-mobile-ota:
+    name: Deploy Mobile OTA → EAS (preview channel)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Publish OTA Update
+        working-directory: apps/mobile
+        run: eas update --channel preview --message "${{ github.event.head_commit.message }}" --non-interactive

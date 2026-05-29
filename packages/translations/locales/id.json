@@ -1,0 +1,44 @@
+{
+  "common": {
+    "loading": "Memuat...",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "confirm": "Konfirmasi",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "back": "Kembali",
+    "next": "Lanjut",
+    "close": "Tutup",
+    "search": "Cari",
+    "noData": "Tidak ada data",
+    "error": "Terjadi kesalahan",
+    "retry": "Coba lagi"
+  },
+  "auth": {
+    "login": "Masuk",
+    "logout": "Keluar",
+    "register": "Buat Akun",
+    "email": "Alamat email",
+    "password": "Kata sandi",
+    "name": "Nama lengkap",
+    "forgotPassword": "Lupa kata sandi?",
+    "noAccount": "Belum punya akun?",
+    "alreadyHaveAccount": "Sudah punya akun?",
+    "loginSuccess": "Selamat datang kembali!",
+    "registerSuccess": "Akun berhasil dibuat",
+    "logoutSuccess": "Anda telah keluar",
+    "emailPlaceholder": "anda@contoh.com",
+    "passwordPlaceholder": "Min. 8 karakter",
+    "namePlaceholder": "Nama lengkap Anda"
+  },
+  "error": {
+    "AUTH_INVALID_TOKEN": "Sesi Anda telah berakhir. Silakan masuk kembali.",
+    "AUTH_EXPIRED_TOKEN": "Sesi Anda telah berakhir. Silakan masuk kembali.",
+    "AUTH_INSUFFICIENT_PERMISSIONS": "Anda tidak memiliki izin untuk melakukan tindakan ini.",
+    "VALIDATION_FAILED": "Periksa formulir dan coba lagi.",
+    "DB_CONFLICT": "Data ini sudah ada.",
+    "RATE_LIMITED": "Terlalu banyak permintaan. Harap tunggu sebentar.",
+    "NOT_FOUND": "Data yang Anda cari tidak ditemukan.",
+    "INTERNAL_SERVER_ERROR": "Terjadi kesalahan tak terduga. Silakan coba lagi nanti."
+  }
+}

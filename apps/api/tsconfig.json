@@ -1,0 +1,12 @@
+{
+  "extends": "@repo/tsconfig/nestjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/env": ["../../packages/env/src/index.ts"],
+      "@repo/validation": ["../../packages/validation/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "prisma/**/*", "test/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

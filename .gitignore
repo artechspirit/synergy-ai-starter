@@ -1,0 +1,52 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+.next
+.expo
+expo/dist
+out
+
+# Turbo
+.turbo
+
+# Test coverage
+coverage
+
+# Environment variables — NEVER commit .env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+
+# Prisma generated client
+packages/api-contracts/generated
+
+# Expo
+apps/mobile/.expo
+apps/mobile/android
+apps/mobile/ios
+
+# Keys (never commit private keys)
+*.pem
+*.key
+private.key
+public.key
