@@ -1,5 +1,5 @@
 # AI CONTEXT — TARGET FULLSTACK MONOREPO GUARDRAILS
-⚠️ RULE 0: Baca file ini sebelum generate. Jangan nebak. Ambigu → STOP & minta klarifikasi. Hierarchy: Root > Workspace > UI. Untuk target aplikasi siap produksi, wajib ikuti [AI_RULES_PRODUCTION_READY.md](file:///home/beta/workspace/apps/synergy-ai-starter/prod-guide-versiku/AI_RULES_PRODUCTION_READY.md).
+⚠️ RULE 0: Baca file ini sebelum generate. Jangan nebak. Ambigu → STOP & minta klarifikasi. Hierarchy: Root > Workspace > UI. Untuk target aplikasi siap produksi, wajib ikuti `AI_RULES_MATURITY.md`, `AI_DEFINITION_OF_DONE.md`, dan `AI_RULES_PRODUCTION_READY.md`.
 
 ## 0. SCOPE & OPERATING MODE
 - Dokumen ini adalah TARGET PRODUCTION ARCHITECTURE untuk arah monorepo masa depan.
@@ -7,8 +7,11 @@
 - Greenfield/new project: ikuti aturan target secara strict.
 - Existing project/maintenance: ikuti pattern repo yang ada, buat minimal diff, dan hanya migrasi menuju target jika diminta.
 - Istilah prioritas: `MUST/WAJIB` = wajib kecuali ada approval; `SHOULD` = default kuat; `MAY` = opsional sesuai konteks.
+- AI WAJIB memilih `Maturity Level` dari `AI_RULES_MATURITY.md` sebelum blueprint/roadmap: Prototype, MVP, Beta, Production v1, atau Regulated/High Risk.
+- Untuk repo existing, AI WAJIB mengikuti `AI_RULES_EXISTING_REPO.md` sebelum edit.
+- Keputusan besar wajib ADR (`AI_ADR_TEMPLATE.md`): backend mode, auth mode, payment provider, deploy provider, data migration besar, public API break, atau hybrid architecture.
 
-## 1. STACK & RUNTIME (EXACT)
+## 1. STACK & RUNTIME (BASELINE)
 - Package Manager: `pnpm` (wajib) | Node: `v20 LTS` | TS: `strict: true, noUncheckedIndexedAccess: true`
 - Monorepo: `Turborepo v2+` | Workspaces: `["apps/*", "packages/*"]`
 - Web baseline: `Next.js 16.x (App Router)`, `React 19.x`, `Tailwind 4.x`
@@ -16,6 +19,7 @@
 - Mobile baseline: `Expo SDK 55.x`, `expo-router` matching SDK, `TanStack Query v5` (`@tanstack/react-query`), `Zustand v5`
 - Shared baseline: `Zod 3.23+ atau chosen major`, `OpenAPI 3.0/3.1`, `pino 8+`, `OpenTelemetry`, `Sentry`
 - Jika package manifest sudah ada, AI WAJIB mengikuti versi manifest kecuali user meminta upgrade.
+- Jika baseline versi sudah berubah dibanding ekosistem terbaru, treat sebagai target minimum/preferred internal dan verifikasi dengan manifest existing atau dokumentasi resmi sebelum upgrade.
 
 ## 2. MONOREPO & TURBOREPO (NON-NEGOTIABLE)
 - Layout: `apps/{web,api,mobile}` | `packages/{tsconfig,eslint,validation,api-contracts,ui}`
@@ -46,6 +50,7 @@
 - AI BOLEH edit file manual mengikuti pattern repo existing, dengan minimal diff dan verifikasi lokal.
 - Migrasi ke target monorepo harus dibuat sebagai roadmap terpisah dan menunggu approval.
 - Jangan membuat `apps/*`/`packages/*` baru hanya karena dokumen target menyebutnya, kecuali user memang meminta migrasi.
+- Ikuti audit, gap report, dan approval gates di `AI_RULES_EXISTING_REPO.md`.
 
 ### 3.3 Migration Protocol Toward Target Monorepo
 - Step 1: Inventory current apps, scripts, env vars, shared code, data access, and deploy targets.
@@ -70,11 +75,13 @@
 - OpenAPI: `@nestjs/swagger` → `packages/api-contracts/openapi.yaml` wajib commit. Run `pnpm -r generate:types` sebelum merge.
 
 ## 6. SECURITY & AUTH
+- Untuk perubahan auth/session/permission, baca `AI_RULES_AUTH.md` dan buat ADR jika mode auth berubah.
 - JWT: Access `15m`, Refresh `7d`. `RS256`. Web: `httpOnly, secure, sameSite=strict, path=/api/auth/refresh`. Mobile: `expo-secure-store`.
 - CORS: `origin: process.env.ALLOWED_ORIGINS.split(',')`. `credentials: true`. Headers: `Content-Type, Authorization, X-Request-ID`.
 - Rate Limit: `@nestjs/throttler`. `100 req/min/IP`. Auth: `10 req/min`.
 - Headers: `Helmet` enabled. HSTS, X-Frame: DENY, X-Content-Type: nosniff.
 - Secrets: `.env` ONLY local. Validasi via Zod terpusat (misal `packages/env`). Sinkron antar workspace. Crash if missing. No fallback.
+- Detail env/secrets mengikuti `AI_RULES_ENV_SECRETS.md`.
 - Sanitization: DTO → Zod strip → Service. 🚫 Never pass `req.body` langsung ke Prisma.
 
 ## 7. DB, MIGRATION & QUERY
@@ -85,6 +92,7 @@
 - Migrations: `prisma migrate dev` (local), `prisma migrate deploy` (CI). WAJIB Expand/Contract pattern (Zero-Downtime). 🚫 DILARANG DROP/Rename kolom dalam 1 rilis.
 - Soft Delete: DB `deleted_at TIMESTAMPTZ`; Prisma `deletedAt` boleh via `@map`. Filter: `{ deletedAt: null }`.
 - Seeds: `prisma/seed.ts`. Idempotent. `@faker-js/faker`. 🚫 No auto-run di prod.
+- Detail seed/dev/demo/test data mengikuti `AI_RULES_SEED_DATA.md`.
 
 ## 8. PERFORMANCE & CACHING
 - DB: Pool `15` max. Timeout `5s`. `EXPLAIN ANALYZE` jika >100ms.
@@ -92,6 +100,7 @@
 - Next.js: Server-first. Public/static data → `force-cache`/`revalidate`. User-specific/auth/dashboard/payment/ownership data → `no-store` default. AI wajib menjelaskan alasan caching per fetch.
 - Expo: `react-native-screens` + `enableFreeze()`. List >20: `FlashList`. `Hermes: true`.
 - NestJS: Async service wajib `try/catch`. Queue heavy task via `@nestjs/bull`. No sync DB di controller.
+- Upload/media mengikuti `AI_RULES_UPLOADS.md`; payment/webhook mengikuti `AI_RULES_PAYMENTS.md`.
 
 ## 9. OBSERVABILITY & ERRORS
 - Log: `{"level":"info","time":"ISO8601","msg":"...","traceId":"...","userId":"...","module":"...","duration_ms":45}`
@@ -117,5 +126,5 @@
 1. Awali: `CONTEXT LOADED. TARGET ARCHITECTURE ACKNOWLEDGED. CURRENT REPO MODE WILL BE VERIFIED. READY.`
 2. Format Output: `[PLAN] → [CLI CMD] → [CODE] → [TEST] → [TURBO CMD] → [CHECKLIST]`
 3. Ambigu? `[CLARIFICATION NEEDED] Options: A/B + risk. Pilih?` 🚫 No generate until confirm.
-4. Checklist Wajib: `✅ Zod`, `✅ Envelope`, `✅ Current repo mode checked`, `✅ @repo/* types if monorepo`, `✅ No unsafe structural migration`, `✅ Tests`, `✅ Turbo compatible if monorepo`, `✅ Production-ready guidelines` (jika rilis produksi)
+4. Checklist Wajib: `✅ Maturity level`, `✅ Zod`, `✅ Envelope`, `✅ Current repo mode checked`, `✅ Existing repo rules checked`, `✅ @repo/* types if monorepo`, `✅ No unsafe structural migration`, `✅ Definition of Done`, `✅ Tests`, `✅ Turbo compatible if monorepo`, `✅ Production-ready guidelines` (jika rilis produksi)
 5. 🚫 DILARANG: Ubah arsitektur/auth/error tanpa konfirmasi. Skip validation. Manual config. Hardcode secrets.

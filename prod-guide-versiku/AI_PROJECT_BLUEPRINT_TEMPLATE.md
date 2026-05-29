@@ -8,6 +8,7 @@
 - **Masalah yang Diselesaikan:** [Masalah utama user/bisnis]
 - **Solusi Utama:** [Cara produk menyelesaikan masalah]
 - **Target Launch:** [MVP / Beta / Production v1]
+- **Maturity Level:** [Prototype / MVP / Beta / Production v1 / Regulated-High Risk]
 - **Primary Platform:** [ ] Web  [ ] Mobile  [ ] API  [ ] Semua
 - **Repo Mode:** [ ] New target monorepo  [ ] Existing repo migration  [ ] Prototype dulu
 
@@ -70,6 +71,7 @@
   - [ ] `packages/eslint`
 - **External Services:** [Payment, storage, email, analytics, maps, blockchain, etc]
 - **Architecture Decision Notes:** [Kenapa memilih stack ini, tradeoff, risiko]
+- **ADR Required:** [ ] Tidak  [ ] Ya - [Tuliskan keputusan yang butuh ADR]
 
 ## 7. TARGET REPOSITORY STRUCTURE
 ```txt
@@ -161,6 +163,7 @@ packages/
 | [Action] | [✅/❌] | [✅/❌] | [✅/❌] | [Notes] |
 
 - **Sensitive Data:** [PII, payment, ownership, health, location, etc]
+- **Threat Model Required:** [ ] Tidak  [ ] Ya - [Auth/payment/PII/ownership/upload/high-risk reason]
 - **Secrets Strategy:** Runtime env via secret manager. No secret in source code.
 - **Rate Limit:** [Default 100 req/min/IP, auth 10 req/min, custom rules]
 - **Threat Notes:** [Fraud, replay, enumeration, unauthorized access, data leakage]
@@ -189,6 +192,7 @@ packages/
   - [Path 2, contoh: scan → verify → claim]
 - **Manual Verification:** [Device/browser/provider checks]
 - **Test Data:** [Seed strategy, fixtures, fake accounts]
+- **Seed/Demo Data Strategy:** [Dev/test/demo/UAT seed, anonymization, reset plan]
 
 ## 15. DEPLOYMENT & ENVIRONMENTS
 - **Environments:** development, preview/staging, production.
@@ -204,6 +208,7 @@ packages/
 ### Phase 0: Discovery & Blueprint Lock
 - [ ] Confirm product scope, non-goals, success metrics.
 - [ ] Choose backend mode and target repo mode.
+- [ ] Choose maturity level and deferred production items.
 - [ ] Approve data sensitivity and security requirements.
 - [ ] Checkpoint: Blueprint approved.
 
@@ -249,6 +254,9 @@ packages/
 - [ ] Testing strategy matches risk.
 - [ ] CI/CD and rollback plan defined.
 - [ ] Observability and health checks defined.
+- [ ] ADR needed for major decisions.
+- [ ] Threat model needed for high-risk flows.
+- [ ] Seed/demo data strategy defined.
 
 ## 18. OPEN QUESTIONS
 - [Question 1]

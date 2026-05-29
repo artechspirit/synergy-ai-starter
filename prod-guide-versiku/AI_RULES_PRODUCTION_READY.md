@@ -1,4 +1,4 @@
-⚠️ Extends root AI_CONTEXT.md. Production hardening & operational excellence rules.
+⚠️ Extends root AI_CONTEXT.md. Production hardening & operational excellence rules. Gunakan bersama `AI_RULES_MATURITY.md`; item yang belum wajib untuk Prototype/MVP harus ditandai `Deferred` dengan alasan dan trigger.
 
 ## 1. ZERO-DOWNTIME DATABASE OPERATIONS (EXPAND/CONTRACT)
 - **Aturan Migrasi:** Semua perubahan skema database (terutama PostgreSQL) di lingkungan produksi wajib mengikuti pola **Expand/Contract** (Zero-Downtime).
@@ -37,6 +37,7 @@
   - 🚫 **DILARANG:** Menyimpan credential, private key, atau API token dalam repositori kode (bahkan di `.env.example` sekalipun).
   - Inject secrets saat runtime melalui Container Orchestrator (AWS ECS, Google Cloud Run) atau Vercel Environment Variables.
   - Semua variabel environment wajib divalidasi saat aplikasi dinyalakan menggunakan skema Zod terpusat (crash fast jika ada env yang hilang/salah format).
+  - Detail operasional mengikuti `AI_RULES_ENV_SECRETS.md`.
 - **Dependency Auditing:**
   - CI/CD pipeline wajib menjalankan security audit dependensi secara otomatis (misal: `pnpm audit` atau Snyk).
   - Blokir deployment jika terdeteksi dependensi yang memiliki tingkat kerentanan *High* atau *Critical* tanpa mitigasi resmi.
@@ -65,6 +66,10 @@
   - Lakukan pembatalan cache (cache invalidation) secara presisi pasca mutasi data (event-driven). Jangan mengandalkan TTL saja untuk data dinamis yang sering berubah.
 
 ## ✅ CHECKLIST PRODUCTION READY
+- [ ] Maturity level chosen and deferred production items documented
+- [ ] Definition of Done satisfied for the work type
+- [ ] ADR exists for architecture/auth/payment/deploy/provider changes
+- [ ] Threat model exists for high-risk auth/payment/PII/ownership/upload flows
 - [ ] Database migrations follow Expand/Contract (no direct column drop/rename)
 - [ ] All database queries indexed and verified via EXPLAIN ANALYZE
 - [ ] Connection pool (PgBouncer) configured and limit set
@@ -84,4 +89,3 @@
 - [ ] React Hook Form + Zod resolver active on both Web & Mobile client forms
 - [ ] Image assets optimized for LCP (Next.js Image configured, Expo native image caching active)
 - [ ] i18n integrated with zero hardcoded UI strings on Web & Mobile
-

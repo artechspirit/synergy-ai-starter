@@ -22,10 +22,11 @@ Setelah itu, berikan prompt ini ke AI:
 ```text
 Tolong baca `PROJECT_INTAKE.md`.
 Ubah intake awam itu menjadi `PROJECT_BLUEPRINT.md` yang mengikuti `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEMPLATE.md`.
-Lalu generate `ROADMAP.md` yang mengikuti `prod-guide-versiku/AI_RULES_ROADMAP.md` serta mengintegrasikan panduan pengerasan produksi di `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md`.
+Lalu generate `ROADMAP.md` yang mengikuti `prod-guide-versiku/AI_RULES_ROADMAP.md`, `prod-guide-versiku/AI_RULES_MATURITY.md`, `prod-guide-versiku/AI_DEFINITION_OF_DONE.md`, serta mengintegrasikan panduan pengerasan produksi di `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md`.
 
 PENTING:
 - Jangan coding dulu.
+- Tentukan maturity level: Prototype, MVP, Beta, Production v1, atau Regulated/High Risk.
 - Kalau ada informasi kurang, maksimal tanya 5 pertanyaan klarifikasi paling penting.
 - Kalau bisa diinfer dengan aman, lanjutkan dan tandai sebagai Assumption.
 ```
@@ -54,7 +55,8 @@ WAJIB gunakan persis format di file `prod-guide-versiku/AI_PROJECT_BLUEPRINT_TEM
 
 PENTING:
 - Jangan tulis kode dulu.
-- Tentukan repo mode, backend mode, high-level feature map, data blueprint, API blueprint, UI/UX blueprint, testing strategy, deployment strategy, dan project roadmap.
+- Tentukan repo mode, backend mode, maturity level, high-level feature map, data blueprint, API blueprint, UI/UX blueprint, testing strategy, deployment strategy, dan project roadmap.
+- Buat ADR jika ada keputusan besar; buat threat model jika ada auth/payment/PII/ownership/upload risk.
 - Jika ada asumsi penting, tulis di bagian Open Questions.
 ```
 > 💡 *Setelah blueprint disetujui, gunakan roadmap di dalamnya untuk memecah setiap fitur P0/P1 menjadi file spesifikasi menggunakan `AI_FEATURE_TEMPLATE.md`.*
@@ -72,6 +74,7 @@ Konsep singkatnya adalah **[Jelaskan sesukamu, misal: admin bisa buat kupon disk
 Tolong bantu jabarkan ide ini menjadi spesifikasi teknis yang detail. 
 WAJIB gunakan persis format 8 poin yang ada di file `prod-guide-versiku/AI_FEATURE_TEMPLATE.md`. 
 Untuk bagian repo mode, backend mode, skema Database, endpoint API, cache policy, UI States, testing risk, dan deployment/rollback, tolong bantu pikirkan dan sarankan *best practice*-nya sesuai target architecture kita.
+Tentukan juga maturity level dan Definition of Done berdasarkan `prod-guide-versiku/AI_RULES_MATURITY.md` dan `prod-guide-versiku/AI_DEFINITION_OF_DONE.md`.
 PENTING: Jika ide ini hanya Web/Mobile/UI-only, jangan paksa ada perubahan Prisma/API.
 ```
 > 💡 *Setelah AI merespons, review isinya. Jika setuju, simpan hasilnya ke dalam file baru, misal `fitur-diskon.md` untuk digunakan pada Skenario 2.*
@@ -85,10 +88,10 @@ Gunakan *prompt* ini jika dokumen spesifikasi fitur sudah Anda anggap lengkap (s
 ```text
 Spesifikasi teknis untuk fitur **[Nama Fitur]** sudah siap. Tolong baca dengan teliti keseluruhan dokumennya.
 
-Setelah itu, tolong buatkan Roadmap Implementasi berdasarkan panduan ketat dari file `prod-guide-versiku/AI_RULES_ROADMAP.md`, patuhi aturan monorepo kita di `prod-guide-versiku/AI_CONTEXT.md`, dan integrasikan checklist pengerasan dari `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md` agar fitur ini siap dirilis di produksi.
+Setelah itu, tolong buatkan Roadmap Implementasi berdasarkan panduan ketat dari file `prod-guide-versiku/AI_RULES_ROADMAP.md`, patuhi aturan monorepo kita di `prod-guide-versiku/AI_CONTEXT.md`, pilih maturity level dari `prod-guide-versiku/AI_RULES_MATURITY.md`, gunakan Definition of Done dari `prod-guide-versiku/AI_DEFINITION_OF_DONE.md`, dan integrasikan checklist pengerasan dari `prod-guide-versiku/AI_RULES_PRODUCTION_READY.md` agar fitur ini siap dirilis sesuai target launch.
 
 PENTING: 
-Tentukan dulu tipe roadmap-nya: Fullstack Data Feature, Frontend-only, Mobile-only, Bugfix, Infra/Deploy, atau Docs/Spec.
+Tentukan dulu tipe roadmap-nya: Fullstack Data Feature, Frontend-only, Mobile-only, Bugfix, Infra/Deploy, Docs/Spec, atau Spike/Investigation.
 Tampilkan roadmap fasenya saja dulu dalam bentuk checkbox Markdown. 
 JANGAN nulis kode aplikasi atau memodifikasi file apa pun sampai aku menyetujui roadmap ini dan memberikan aba-aba "Silakan laksanakan Fase 1".
 Jika repo existing belum sesuai target monorepo, buat migration gate dan jangan mengubah struktur repo tanpa approval eksplisit.

@@ -40,7 +40,11 @@
 ## 6. INTERNATIONALIZATION & LOCALIZATION (i18n)
 - **Frameworks:** Gunakan `next-intl` untuk Web (Next.js) dan `i18n-js` untuk Mobile (Expo).
 - **Translation Management:** Berkas penerjemahan wajib dikelola terpusat menggunakan format JSON terstruktur (misal: `packages/translations/locales/{en,id}.json`) untuk memudahkan sinkronisasi bahasa lintas platform.
-- **Hardcoded Text:** 🚫 DILARANG menulis string teks UI secara langsung (*hardcoded*). Semua teks wajib melalui fungsi/hook translasi (`t('key')`).
+- **Hardcoded Text by Maturity:**
+  - Prototype: boleh hardcoded jika scope kecil dan dicatat sebagai deferred.
+  - MVP: core public/user-facing flow SHOULD memakai i18n jika multi-language adalah requirement.
+  - Beta/Production v1: semua UI string user-facing WAJIB melalui fungsi/hook translasi (`t('key')`) jika project sudah memakai i18n.
+  - Regulated/High Risk: copy legal, consent, privacy, payment, dan auth tidak boleh tersebar hardcoded.
 
 ## 🚫 ANTI-PATTERNS
 - Hardcode warna/spacing → GANTI `bg-brand-500`, `m-3`

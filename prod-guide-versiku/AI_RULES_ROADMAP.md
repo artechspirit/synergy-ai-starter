@@ -8,12 +8,16 @@ AI WAJIB mengklasifikasikan pekerjaan sebelum membuat fase:
 - `Bugfix`: memperbaiki bug existing.
 - `Infra/Deploy`: CI/CD, Docker, env, observability.
 - `Docs/Spec`: dokumentasi, prompt, acceptance criteria.
+- `Spike/Investigation`: riset terarah saat ada unknown besar, integrasi pihak ketiga, migrasi framework/auth, performa query, atau repo state belum jelas.
+- AI juga WAJIB memilih `Maturity Level` dari `AI_RULES_MATURITY.md`.
 
 ## 2. STRATEGI EKSEKUSI
 - Untuk `Fullstack Data Feature`, AI WAJIB membangun dari lapisan terdalam menuju lapisan terluar: DB → API → Contract → Client → Polish.
 - Untuk tipe lain, AI WAJIB memilih fase sesuai scope dan tidak memaksa Prisma/DB jika tidak relevan.
 - 🚫 DILARANG mulai membangun UI yang bergantung pada data jika skema/contract API belum disepakati.
 - Existing repo yang belum monorepo: roadmap harus menyebut "current repo mode" dan tidak boleh membuat path target baru tanpa approval.
+- Setiap fase harus punya Definition of Done dari `AI_DEFINITION_OF_DONE.md`.
+- Untuk auth/payment/upload/PII/ownership, tambahkan ADR atau threat model jika risk level High.
 
 ## 3. STANDAR FASE — FULLSTACK DATA FEATURE
 - **Phase 1: Data Layer (Prisma)** → Update `schema.prisma`, generate migration, validasi relasi.
@@ -43,6 +47,13 @@ AI WAJIB mengklasifikasikan pekerjaan sebelum membuat fase:
 - **Phase 4: Verify** → Jalankan test/lint/build relevan.
 - **Phase 5: Risk Note** → Catat area yang belum ter-cover jika ada.
 
+## 6.1 STANDAR FASE — SPIKE/INVESTIGATION
+- **Phase 1: Question & Constraint** → Tuliskan pertanyaan yang harus dijawab, repo mode, maturity, dan batas waktu spike.
+- **Phase 2: Evidence Gathering** → Inspect repo/docs/logs/provider sandbox tanpa membuat perubahan struktural.
+- **Phase 3: Options & Tradeoffs** → Bandingkan opsi, risiko, biaya migrasi, dan rollback.
+- **Phase 4: Recommendation** → Pilih rekomendasi, kebutuhan ADR, dan next-step roadmap.
+- **Phase 5: Verification** → Lampirkan command/output relevan atau link docs resmi jika memakai informasi eksternal.
+
 ## 7. CHECKPOINT & VERIFIKASI (WAJIB)
 Setiap fase HARUS memiliki "Gembok" (Checkpoint) berupa perintah CLI Turborepo/pnpm. AI dilarang berasumsi sukses dan melanjutkan ke fase berikutnya jika verifikasi ini belum berstatus ✅ *Passed*.
 - Fullstack Phase 1 Check: `prisma validate` / `prisma migrate dev` jika mode Prisma.
@@ -51,6 +62,7 @@ Setiap fase HARUS memiliki "Gembok" (Checkpoint) berupa perintah CLI Turborepo/p
 - Web Check: `turbo run build --filter=apps/web...` atau `pnpm --dir <web-app> build`.
 - Mobile Check: `pnpm --dir <mobile-app> lint` / `expo-doctor` / simulator check sesuai project.
 - Bugfix Check: test spesifik yang gagal sebelum fix dan pass sesudah fix.
+- Spike Check: evidence cukup untuk menjawab pertanyaan awal; tidak ada perubahan production code kecuali disetujui.
 
 ## 8. ATURAN INTERAKSI DENGAN USER
 - **Pacing (Kecepatan):** AI harus bertanya: *"Ini adalah Roadmap-nya. Apakah kita akan mulai mengeksekusi Fase 1 sekarang?"*
@@ -60,7 +72,9 @@ Setiap fase HARUS memiliki "Gembok" (Checkpoint) berupa perintah CLI Turborepo/p
 
 ## ✅ CHECKLIST UNTUK AI
 - [ ] Tipe roadmap dipilih dan disebutkan
+- [ ] Maturity level dipilih dan disebutkan
 - [ ] Pendekatan *Inside-Out* hanya untuk fullstack data feature
 - [ ] Ada CLI verifikasi di akhir setiap fase
 - [ ] Menggunakan format Checkbox Markdown
 - [ ] Meminta *Approval* user sebelum mengeksekusi *step* pertama
+- [ ] Definition of Done disebutkan per fase

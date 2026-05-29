@@ -7,7 +7,9 @@
 - **Tujuan Bisnis:** [Kenapa fitur ini dibuat? Apa *value*-nya bagi *user*?]
 - **Platform:** [ ] Web  [ ] Mobile  [ ] Backend  [ ] Semua
 - **Tipe Pekerjaan:** [ ] Fullstack Data Feature  [ ] Frontend-only  [ ] Mobile-only  [ ] Bugfix  [ ] Infra/Deploy  [ ] Docs/Spec
+- **Maturity Level:** [ ] Prototype  [ ] MVP  [ ] Beta  [ ] Production v1  [ ] Regulated/High Risk
 - **Repo Mode:** [ ] Existing repo  [ ] Target monorepo  [ ] Migration menuju target monorepo
+- **ADR/Threat Model Required:** [ ] Tidak  [ ] ADR  [ ] Threat Model - [Alasan]
 
 ## 2. 👤 USER ROLES & PERMISSIONS (TAMBAHAN)
 - **Aktor:** [Siapa saja yang bisa mengakses fitur ini? misal: Admin, Customer, Guest]
@@ -62,4 +64,5 @@
 - **Background Job:** [Apakah ada proses asinkron/Cron Job yang berjalan di belakang?]
 - **Performa/Cache:** [Apakah data ini perlu di-cache di Redis? Berapa lama TTL-nya?]
 - **Testing Risk:** [Low / Medium / High] - [Unit/Integration/E2E/manual verification yang wajib]
+- **Definition of Done:** [Bugfix/Frontend/API/DB/Infra/Docs checklist dari `AI_DEFINITION_OF_DONE.md` yang relevan]
 - **Deployment/Rollback:** [Apakah butuh env baru, migration, feature flag, atau rollback plan?]
