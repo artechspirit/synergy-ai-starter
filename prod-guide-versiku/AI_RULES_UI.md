@@ -37,6 +37,11 @@
 - Loading: `Skeleton` / `aria-busy="true"` sebelum data ready.
 - Error: `role="alert"`, `aria-describedby`, envelope `code + message` konsisten.
 
+## 6. INTERNATIONALIZATION & LOCALIZATION (i18n)
+- **Frameworks:** Gunakan `next-intl` untuk Web (Next.js) dan `i18n-js` untuk Mobile (Expo).
+- **Translation Management:** Berkas penerjemahan wajib dikelola terpusat menggunakan format JSON terstruktur (misal: `packages/translations/locales/{en,id}.json`) untuk memudahkan sinkronisasi bahasa lintas platform.
+- **Hardcoded Text:** 🚫 DILARANG menulis string teks UI secara langsung (*hardcoded*). Semua teks wajib melalui fungsi/hook translasi (`t('key')`).
+
 ## 🚫 ANTI-PATTERNS
 - Hardcode warna/spacing → GANTI `bg-brand-500`, `m-3`
 - Inline `style={{}}` → GANTI utility class
@@ -44,6 +49,7 @@
 - Skip focus/keyboard → ADD `focus-visible` & `:active`
 - Mobile hover → GANTI `active:` / `pressOpacity`
 - Import UI dari apps → GANTI `@repo/ui` setelah monorepo package tersedia
+- Menulis string teks UI secara langsung (*hardcoded*) → GANTI dengan hooks translasi i18n
 
 ## ✅ CHECKLIST
 - [ ] Warna/spacing/radius pakai token
@@ -54,3 +60,4 @@
 - [ ] Imported `@repo/ui`, bukan buat baru
 - [ ] `sync:ui-tokens` clean diff
 - [ ] Jika `packages/ui` belum ada, migration plan disetujui dulu
+- [ ] i18n integrated and no hardcoded UI text strings present

@@ -12,7 +12,7 @@
 - Validation source of truth: Zod schema. Gunakan custom Zod pipe/helper di controller boundary; `ValidationPipe` hanya boleh untuk transform primitive params jika memang diperlukan.
 - Errors: Global `HttpExceptionFilter`. Extend `BaseException`. Format envelope exact.
 - DB: WAJIB pakai ORM Prisma (`PrismaService` singleton). Repositories abstract Prisma. `$transaction` multi-step.
-- OpenAPI: `@nestjs/swagger` decorators on DTOs & controllers. Auto-sync ke `packages/api-contracts`.
+- OpenAPI: `@nestjs/swagger` decorators on DTOs & controllers. Auto-sync ke `packages/api-contracts`. Client-side (Web & Mobile) WAJIB men-generate API Client/SDK dan **TanStack Query** hooks secara otomatis dari OpenAPI schema menggunakan **Orval** (target: `@tanstack/react-query`) atau **openapi-typescript**.
 
 ## 🚫 ANTI-PATTERNS
 - Fat Controller (>15 baris) → PINDAH Service
@@ -26,6 +26,7 @@
 - Upload File Berat ke Backend Server → GANTI pakai Pre-signed URL (S3/GCS) langsung dari Client
 - Sinkronisasi Webhook lambat → GANTI Validasi Signature -> Return 200 Segera -> Proses Async
 - Background Jobs tidak Idempotent → WAJIB Idempotent (aman jika di-retry berkali-kali)
+- Menulis fetch API / TanStack Query hooks secara manual di client → GANTI dengan generate otomatis dari OpenAPI contract
 
 ## ✅ CHECKLIST
 - [ ] Backend mode identified

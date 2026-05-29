@@ -13,7 +13,7 @@
 - Monorepo: `Turborepo v2+` | Workspaces: `["apps/*", "packages/*"]`
 - Web baseline: `Next.js 16.x (App Router)`, `React 19.x`, `Tailwind 4.x`
 - Backend baseline: `NestJS 10.x`, `Express adapter`, `Prisma 5.x/6.x`, `PostgreSQL 15+`
-- Mobile baseline: `Expo SDK 55.x`, `expo-router` matching SDK, `React Query v5`, `Zustand v5`
+- Mobile baseline: `Expo SDK 55.x`, `expo-router` matching SDK, `TanStack Query v5` (`@tanstack/react-query`), `Zustand v5`
 - Shared baseline: `Zod 3.23+ atau chosen major`, `OpenAPI 3.0/3.1`, `pino 8+`, `OpenTelemetry`, `Sentry`
 - Jika package manifest sudah ada, AI WAJIB mengikuti versi manifest kecuali user meminta upgrade.
 

@@ -79,3 +79,9 @@
 - [ ] /healthz and /readyz endpoints active and checking dependency health
 - [ ] Cache-Control set with stale-while-revalidate for semi-dynamic data
 - [ ] Cache Stampede mitigation active on heavy database query caching
+- [ ] API Client/SDK generated automatically from OpenAPI schema (no manual fetch writing)
+- [ ] Prisma Client global singleton pattern active on serverless Next.js deployment
+- [ ] React Hook Form + Zod resolver active on both Web & Mobile client forms
+- [ ] Image assets optimized for LCP (Next.js Image configured, Expo native image caching active)
+- [ ] i18n integrated with zero hardcoded UI strings on Web & Mobile
+
