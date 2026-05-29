@@ -1,0 +1,13 @@
+{
+  "name": "mobile",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'mobile build skeleton'",
+    "typecheck": "echo 'mobile typecheck skeleton'"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
+    "typescript": "5.9.2"
+  }
+}
